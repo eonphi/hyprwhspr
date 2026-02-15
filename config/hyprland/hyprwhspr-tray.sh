@@ -51,7 +51,7 @@ cmd_cached() {
 _date_ms(){ date +%s%3N 2>/dev/null || date +%s; }
 
 # Tiny helper for fast, safe command execution
-try() { timeout 0.2s bash -lc "$*" 2>/dev/null; }
+try() { timeout 0.2s bash -c "$*" 2>/dev/null; }
 
 # Function to check if hyprwhspr is running
 is_hyprwhspr_running() {
