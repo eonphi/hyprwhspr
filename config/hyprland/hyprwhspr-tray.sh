@@ -622,19 +622,8 @@ emit_json() {
     # Escape newlines for JSON (replace \n with \\n)
     tooltip="${tooltip//$'\n'/\\n}"
     
-    # Force waybar refresh by making text unique each time with zero-width space
-    # Waybar may cache based on text field, so we add an invisible character
-    # Using zero-width space (U+200B) - completely invisible but makes text unique
-    # We cycle through a few zero-width spaces based on timestamp to ensure uniqueness
-    local zws_count=$((ts % 10))
-    local zws=""
-    # Add 0-9 zero-width spaces based on timestamp (invisible but unique)
-    for ((i=0; i<zws_count; i++)); do
-        zws="${zws}$(printf '\u200B')"
-    done
-    text="${text}${zws}"
-    
     # Output JSON for waybar
+    # tooltip's _ts timestamp ensures unique output each poll
     printf '{"text":"%s","class":"%s","tooltip":"%s"}\n' "$text" "$class" "$tooltip"
 }
 
